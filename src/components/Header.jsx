@@ -16,7 +16,11 @@ function Header() {
     await signOut(auth).then(()=>{
 
       setUser({ isLogin: false, userInfo: {} });
-      alert("User Logged Out");
+      <>
+      <Alert message="Success Tips" type="success" showIcon />
+      <br />
+      </>
+      {/* alert("User Logged Out"); */}
       navigate("/")
     })
     .catch((error) => {
