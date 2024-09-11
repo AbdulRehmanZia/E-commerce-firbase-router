@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import ProductCard from "./components/ProductCard";
-import ProductDetail from "./pages/productDetail";
+import ProductDetail from "./pages/ProductDetail.jsx";
 import Header from "./components/Header";
 import ThemeContextProvider from "./context/ThemeContext";
 import SignIn from "./pages/SignIn";
