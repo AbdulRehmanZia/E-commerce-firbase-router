@@ -126,6 +126,7 @@ function SignUp() {
         </label>
         <input
           value={password}
+          placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           id="password"
