@@ -54,7 +54,7 @@ function SignIn() {
   }
 
   return (
-    <div className="max-w-sm mx-auto">
+    <div className="max-w-sm container mx-auto mt-24">
       <div className="mb-5">
         <label
           htmlFor="email"
