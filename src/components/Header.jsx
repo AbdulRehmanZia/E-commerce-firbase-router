@@ -43,7 +43,7 @@ function Header() {
             <Link to={"/"} className="m-5 hover:text-gray-900">
               Home
             </Link>
-            <a className="m-5 hover:text-gray-900">Cart Items</a>
+            <a className="m-5 hover:text-gray-900 cursor-pointer">Cart Items</a>
           </nav>
 
           {/* This div aligns Avatar and buttons in the same row */}
