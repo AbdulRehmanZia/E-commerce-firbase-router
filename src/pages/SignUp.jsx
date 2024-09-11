@@ -59,6 +59,7 @@ function SignUp() {
             icon: "success",
           });
         }
+        navigate("/")
         const credential = GoogleAuthProvider.credentialFromResult(result);
         console.log("result", result);
         const token = credential.accessToken;
