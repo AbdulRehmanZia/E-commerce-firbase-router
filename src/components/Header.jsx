@@ -2,35 +2,43 @@ import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
-import { Avatar } from "antd";
+import { Avatar, message } from "antd";
 import { signOut } from "firebase/auth";
 import { auth } from "../utilis/firebase";
+import Swal from "sweetalert2";
 
 function Header() {
   const { theme, setTheme } = useContext(ThemeContext);
   const { user, setUser } = useContext(AuthContext);
   console.log("User in Header=>", user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   const HandleLogout = async () => {
-    await signOut(auth).then(()=>{
-
-      setUser({ isLogin: false, userInfo: {} });
-      <>
-      <Alert message="Success Tips" type="success" showIcon />
-      <br />
-      </>
-      {/* alert("User Logged Out"); */}
-      navigate("/")
-    })
-    .catch((error) => {
-      console.error("Logout failed: ", error);
-      alert("Failed to log out. Please try again.");
-    });
+    await signOut(auth)
+      .then(() => {
+        setUser({ isLogin: false, userInfo: {} });
+        {
+          Swal.fire({
+            title: "Goodbye!",
+            text: "User Logged Out Successfully!",
+            icon: "success",
+          });
+        }
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Logout failed: ", error);
+        Swal.fire({
+          title: "Logout Failed",
+          text: "Unable to log out. Please try again later.",
+          icon: "error",
+        });
+      });
   };
   return (
     <>
-    
       <header
         className={`${
           theme === "dark"
@@ -69,8 +77,8 @@ function Header() {
             )}
             {user.isLogin && user.userInfo ? (
               <>
-                <Avatar 
-                onClick={()=> navigate('/profile')}
+                <Avatar
+                  onClick={() => navigate("/profile")}
                   src={user.userInfo.photoURL}
                   size="large"
                   className="mb-1 cursor-pointer"

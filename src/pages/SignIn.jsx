@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; 
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../utilis/firebase";
+import Swal from 'sweetalert2';
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -16,12 +17,23 @@ function SignIn() {
       .then((user) => {
         console.log(user);
         setLoading(false);
-        navigate("/"); // Redirect to home page after successful sign-in
+        {
+          Swal.fire({
+            title: "Welcome!",
+            text: "User Registered Successfully!",
+            icon: "success",
+          });
+        }
+        navigate("/"); 
       })
       .catch((err) => {
         console.log(err);
-        alert(err.message);
         setLoading(false);
+        Swal.fire({
+          title: "Oops!",
+          text: "Something went wrong. Please try again.",
+          icon: "error"
+        });        
       });
   }
 
@@ -38,6 +50,13 @@ function SignIn() {
         const user = result.user;
         console.log("user=>", user);
         setLoadingGoogle(false);
+        {
+          Swal.fire({
+            title: "Welcome!",
+            text: "User Registered Successfully!",
+            icon: "success",
+          });
+        }
         navigate("/"); 
       })
       .catch((error) => {
@@ -49,7 +68,12 @@ function SignIn() {
         const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
         setLoadingGoogle(false);
-        alert("Sign-in failed. Please try again.");
+        Swal.fire({
+          title: "Oops!",
+          text: "Something went wrong. Please try again.",
+          icon: "error"
+        });
+        
       });
   }
 

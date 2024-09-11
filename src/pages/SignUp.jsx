@@ -1,7 +1,12 @@
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider  } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { auth } from "../utilis/firebase";
+import Swal from "sweetalert2";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -9,50 +14,71 @@ function SignUp() {
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-//E-mail
+  //E-mail
   function handleSignUpWithEmail() {
     setLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((user) => {
         console.log("User account Created", user);
         setLoading(false);
+        {
+          Swal.fire({
+            title: "Registration Successful!",
+            text: "User Registered Successfully!",
+            icon: "success",
+          });
+        }
         navigate("/");
       })
 
       .catch((err) => {
         console.log("err in making account", err);
         setLoading(false);
+        Swal.fire({
+          title: "Oops!",
+          text: "Something went wrong. Please try again.",
+          icon: "error",
+        });
       });
   }
 
   //GOOGLE
   function handleSignUpWithGoogle() {
-    setLoadingGoogle(true)
+    setLoadingGoogle(true);
     const provider = new GoogleAuthProvider();
     provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
 
     signInWithPopup(auth, provider)
       .then((result) => {
+        {
+          Swal.fire({
+            title: "Registration Successful!!",
+            text: "User Registered Successfully!",
+            icon: "success",
+          });
+        }
         const credential = GoogleAuthProvider.credentialFromResult(result);
         console.log("result", result);
         const token = credential.accessToken;
         const user = result.user;
         console.log("user=>", user);
-        setLoadingGoogle(false)
-
-        
+        setLoadingGoogle(false);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error=>", errorCode, errorMessage);
-        
+
         const email = error.customData.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
-        setLoadingGoogle(false)
-
+        setLoadingGoogle(false);
+        Swal.fire({
+          title: "Oops!",
+          text: "Something went wrong. Please try again.",
+          icon: "error",
+        });
       });
   }
 
