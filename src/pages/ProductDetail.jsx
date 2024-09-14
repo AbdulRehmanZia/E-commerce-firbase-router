@@ -40,12 +40,12 @@ function ProductDetail() {
 
   return (
     <>
-      <section className="text-gray-600 body-font overflow-hidden">
-        <Link to={"/"}>
+      <section className="text-gray-600 body-font overflow-hidden h-fit">
+        {/* <Link to={"/"}>
           <button className="flex mx-auto text-white bg-gray-800 my-4 border-0 py-2 px-6 focus:outline-none hover:bg-slate-900 rounded">
             Go Back To Home
           </button>
-        </Link>
+        </Link> */}
         <div className="container px-5 py-16 mx-auto ">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img
