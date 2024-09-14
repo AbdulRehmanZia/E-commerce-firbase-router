@@ -8,12 +8,12 @@ function CardContextProvider({ children }) {
   useEffect(() => {
     const itmes = localStorage.getItem("cartItem");
     if (itmes) {
-      SetCartItems([...JSON.parse(cartItems)]);
+      SetCartItems([...JSON.parse(cartItems)]); //Pehli baar component render hone par local storage se cart items load
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cartItem", JSON.stringify(cartItems));
+    localStorage.setItem("cartItem", JSON.stringify(cartItems)); //Jab bhi cartItems mein change hon, unhe local storage me save
   }, [cartItems]);
 
   //1st Function
